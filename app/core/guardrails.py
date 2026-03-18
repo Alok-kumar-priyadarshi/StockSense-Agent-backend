@@ -2,7 +2,7 @@ def apply_guardrails(response: dict):
 
     text = str(response).lower()
 
-    forbidden = ["buy", "sell", "invest", "guaranteed" , "purchase" , "recommend" ]
+    forbidden = ["buy", "sell", "invest", "guaranteed" , "purchase" , "recommend","bomb","guns","drugs","Trafficking"  ]
 
     if any(word in text for word in forbidden):
         return {
