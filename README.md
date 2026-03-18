@@ -21,6 +21,7 @@ StockSense Agent is a full-stack Generative AI system that analyzes real-time ne
 ### 🧠 Analysis Output
 
 ![Analysis Screenshot](screenshots/image2.png)
+![](screenshots/image3.png)
 
 ---
 
