@@ -2,9 +2,10 @@ from app.agents.news_agent import get_news
 from app.agents.finance_agent import get_finance_data
 from app.agents.reasoning_agent import analyze_impact
 from app.core.router import route_query
+from app.core.guardrails import apply_guardrails
 from app.utils.logger import log_info, log_error
 from app.memory.memory_store import get_memory, update_memory
-from app.utils.validators import is_valid_company_name , validate_company_llm
+from app.utils.validators import is_valid_company_name, validate_company_llm
 
 def run_pipeline(query: str, user_id: str = "default"):
 
@@ -53,10 +54,14 @@ def run_pipeline(query: str, user_id: str = "default"):
 
         analysis = analyze_impact(company, news_data, finance_data)
 
+        guarded = apply_guardrails(analysis)
+        if "error" in guarded:
+            return guarded
+
         result = {
             "company": company,
             "event_summary": [n["title"] for n in news_data],
-            **analysis
+            **guarded
         }
 
         results.append(result)

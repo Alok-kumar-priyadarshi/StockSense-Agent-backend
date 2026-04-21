@@ -34,9 +34,12 @@ def analyze_impact(company , news , finance):
     
     raw_response = get_llm_response(prompt)
     parsed = parse_llm_output(raw_response)
-    
+
+    if not isinstance(parsed, dict):
+        parsed = {}
+
     parsed = add_conclusion(parsed)
-    
+
     if not parsed.get("reasoning_chain"):
         parsed["reasoning_chain"] = ["Insufficient reasoning"]
 
